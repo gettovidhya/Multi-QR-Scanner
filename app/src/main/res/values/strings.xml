@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">QRScanner</string>
+    <string name="action_settings">Settings</string>
+    <string name="openCamera">Capture</string>
+    <string name="title_activity_image_chunk">imageChunk</string>
+    <string name="title_activity_chunked">ChunkedActivity</string>
+</resources>
