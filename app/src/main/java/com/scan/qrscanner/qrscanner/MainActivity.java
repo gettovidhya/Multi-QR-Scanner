@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.LuminanceSource;
@@ -23,8 +25,11 @@ import com.google.zxing.Reader;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends Activity {
@@ -91,34 +96,34 @@ public class MainActivity extends Activity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(cr, selectedImage);
                 imageView.setImageBitmap(bitmap);
-//                Log.v(logtag, "Calling the crop function");
-//                ArrayList<Bitmap> chunkedImages = cropImage(imageView, 4);
-//                Log.v(logtag, "Size : " + chunkedImages.size());
-//                if (bitmap != null && !bitmap.isRecycled()) {
-//                    Log.v(logtag, "recycling bitmap after getting image chunks");
-//                    bitmap.recycle();
-//                    bitmap = null;
-//                }
-//                for (int i = 0; i < chunkedImages.size(); i++) {
-//                    Log.v(logtag, "Saving image" + i);
-//                    imgResult = saveImage(chunkedImages.get(i), i + 1);
-//                    Log.v(logtag, "Result" + imgResult);
-//                    InputStream is = new BufferedInputStream(new FileInputStream(String.valueOf(qr_folder) + "/QRCode" + (i + 1) + ".png"));
-//                    Bitmap bitmap2 = BitmapFactory.decodeStream(is);
-//                    String decoded = scanImage(bitmap2);
-//                    Log.i("QrTest", "Decoded string=" + decoded);
-//                    // The string decoded will contain the value of each QR code
-//                    if (decoded != null) {
-//                        Toast.makeText(MainActivity.this, decoded, Toast.LENGTH_LONG).show();
-//                    }
-//                    if (bitmap2 != null && !bitmap2.isRecycled()) {
-//                        Log.v(logtag, "Recycling bitmap2");
-//                        bitmap2.recycle();
-//                        bitmap2 = null;
-//                    }
-//                    Log.v(logtag, "Scanned an image");
-//                }
-//                Log.v(logtag, "Done with scanning");
+                Log.v(logtag, "Calling the crop function");
+                ArrayList<Bitmap> chunkedImages = cropImage(imageView, 4);
+                Log.v(logtag, "Size : " + chunkedImages.size());
+                if (bitmap != null && !bitmap.isRecycled()) {
+                    Log.v(logtag, "recycling bitmap after getting image chunks");
+                    bitmap.recycle();
+                    bitmap = null;
+                }
+                for (int i = 0; i < chunkedImages.size(); i++) {
+                    Log.v(logtag, "Saving image" + i);
+                    imgResult = saveImage(chunkedImages.get(i), i + 1);
+                    Log.v(logtag, "Result" + imgResult);
+                    InputStream is = new BufferedInputStream(new FileInputStream(String.valueOf(qr_folder) + "/QRCode" + (i + 1) + ".png"));
+                    Bitmap bitmap2 = BitmapFactory.decodeStream(is);
+                    String decoded = scanImage(bitmap2);
+                    Log.i("QrTest", "Decoded string=" + decoded);
+                    // The string decoded will contain the value of each QR code
+                    if (decoded != null) {
+                        Toast.makeText(MainActivity.this, decoded, Toast.LENGTH_LONG).show();
+                    }
+                    if (bitmap2 != null && !bitmap2.isRecycled()) {
+                        Log.v(logtag, "Recycling bitmap2");
+                        bitmap2.recycle();
+                        bitmap2 = null;
+                    }
+                    Log.v(logtag, "Scanned an image");
+                }
+                Log.v(logtag, "Done with scanning");
 
 //            Log.v(logtag, String.valueOf(chunkedImages.size()));
 //            for(int i=0;i<chunkedImages.size();i++){
